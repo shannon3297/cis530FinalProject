@@ -21,19 +21,18 @@ def getKeysTokens(user):
         access_token = ""
         access_token_secret = ""
     else:
-        print("invalid username yo")
+        print("invalid username yo, are you even in cis530??")
     return [consumer_key, consumer_secret,access_token,access_token_secret]
 
 if __name__ == "__main__":
-    # change file name to whatever csv you downloaded from IEEE: https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset
-    filename = 'corona_tweets_01.csv'
+    # IEEE dataport: https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset
+    inputted_file = input("Type the original .csv downloaded from IEEE (ex: corona_tweets_01.csv): ")
+    filename = inputted_file
     df = pd.read_csv(filename)
-    # batch_size=50
-    # ids = df.head(batch_size).iloc[:,0]
     ids=df.iloc[:,0]
     id_file = filename[:-4] + '_ids.csv'
     ids.to_csv(id_file, index=False)
-    print("check out tweet ids at ", id_file)
+    print("successfully extracted tweet ids, check it out at", id_file)
     all_tweets = []
     num_tweets_hydrated = 0
     user = "shan"
@@ -80,7 +79,7 @@ if __name__ == "__main__":
             t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
             num_tweets_hydrated = 0
         if user == "varun":
-            print("milked varun's limit, need to rest 15 minutes before cycling through us 3 again")
+            print("milked varun's limit, need to rest 15 minutes before cycling through our accounts again")
             break # remove this when varun adds his account info
             time.sleep(60*15)
             [consumer_key, consumer_secret, access_token, access_token_secret] = getKeysTokens("shan")
@@ -88,7 +87,6 @@ if __name__ == "__main__":
             num_tweets_hydrated = 0
     df_tweets = pd.DataFrame.from_dict(all_tweets)
     df_tweets['sentiment'] = df.iloc[:,1]
-    # df_tweets['sentiment'] = df.head(batch_size).iloc[:,1]
-    # print(df_tweets.head(10))
+    print(df_tweets.head(20))
     outfile = filename[:-4] + '_hydrated.csv'
     df_tweets.to_csv(outfile, index=False)
