@@ -57,81 +57,79 @@ if __name__ == "__main__":
             filename = 'corona_tweets_0' + str(num) + '.csv'
         else:
             filename = 'corona_tweets_' + str(num) + '.csv'
-        df = pd.read_csv(filename, dtype={'INPUT: Extra 1':np.object_})
-        df = df.astype(float)
-        print(df)
+        df = pd.read_csv(filename)
         ids=df.iloc[:,0]
         id_file = filename[:-4] + '_ids.csv'
         ids.to_csv(id_file, index=False)
         print("successfully extracted tweet ids, check it out at", id_file)
-        # all_tweets = []
-        # df = pd.read_csv(filename, header=None)
-        # df.columns = ['id', 'sentiment']
-        # total_tweets = df.shape[0]
-        # df_tweet_file = pd.DataFrame(
-        #     columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name', \
-        #              'followers_count', 'retweet_count', 'favorite_count', 'hashtags'])
-        # num_tweets_hydrated = 0
-        # user_count = 0 # what index of all_users I am currently using to hydrate
-        # num_iter = 0 # how many total users I have gone through
-        # tweet_limit = 300
-        # user = all_users[user_count]
-        # [consumer_key, consumer_secret,access_token,access_token_secret] = getKeysTokens(user)
-        # t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
-        # curr_df = pd.read_csv(id_file)
-        # all_ids = curr_df.iloc[:,0]
-        # last_idx = (len(all_ids) - 1)
-        # print(id_file, "has",last_idx,"ids")
-        # curr_idx = range(num_iter*300,(num_iter+1)*300)
-        # out_file = filename[:-4] + '_hydrated.csv'
-        # open(out_file,'w')
-        # while last_idx not in curr_idx:
-        #     tweets = t.hydrate(all_ids[curr_idx])
-        #     for tweet in tweets:
-        #         try:
-        #             curr_tweet = dict()
-        #             # ignore any non-English tweets or retweets
-        #             if tweet['lang'] != "en":
-        #                 continue
-        #             curr_tweet['text'] = tweet['full_text']
-        #             curr_tweet['id'] = tweet['id']
-        #             if tweet['place']:
-        #                 curr_tweet['place'] = tweet['place']['country']
-        #             else:
-        #                 curr_tweet['place'] = ""
-        #             curr_tweet['created_at'] = tweet['created_at']
-        #             curr_tweet['user_location'] = tweet['user']['location']
-        #             curr_tweet['user_name'] = tweet['user']['name']
-        #             curr_tweet['user_followers_count'] = tweet['user']['followers_count']
-        #             curr_tweet['retweet_count'] = tweet['retweet_count']
-        #             curr_tweet['favorite_count'] = tweet['favorite_count']
-        #             if tweet['entities']['hashtags']:
-        #                 curr_tweet['hashtags'] = tweet['entities']['hashtags'][0]
-        #             else:
-        #                 curr_tweet['hashtags'] = ""
-        #             all_tweets.append(curr_tweet)
-        #             num_tweets_hydrated += 1
-        #         except Exception as e:
-        #             print('EXCEPTION:', e)
-        #             continue
-        #         num_iter += 1
-        #         curr_idx = range(num_iter*300,(num_iter+1)*300)
-        #         # we are limited to 300 tweets every 15 min for every account, cycle to next account if limit is reached
-        #         if num_tweets_hydrated == tweet_limit:
-        #             user_count += 1
-        #             print("milked", user, "'s limit, onto using ", all_users[user_count], "'s account")
-        #             if user_count == len(all_users):
-        #                 print("take a break! we need to rest 15 minutes before cycling through our accounts again")
-        #                 df_tweets = pd.DataFrame.from_dict(all_tweets)
-        #                 df_tweets.to_csv(out_file, index=False, mode='a', header=False)
-        #                 all_tweets = []
-        #                 print("you can check out what tweets we've currently hydrated at", out_file)
-        #                 exit # uncommment this out to run the cycle for real
-        #                 time.sleep(60 * 15)
-        #                 user_count = 0
-        #             num_tweets_hydrated = 0
-        #             user = all_users[user_count]
-        #             [consumer_key, consumer_secret, access_token, access_token_secret] = getKeysTokens(user)
-        #             t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
-        # # df_tweets['sentiment'] = df.iloc[:,1]
-        # print("successfully extracted tweets and attributes, check it out at", out_file)
+        all_tweets = []
+        df = pd.read_csv(filename, header=None)
+        df.columns = ['id', 'sentiment']
+        total_tweets = df.shape[0]
+        df_tweet_file = pd.DataFrame(
+            columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name', \
+                     'followers_count', 'retweet_count', 'favorite_count', 'hashtags'])
+        num_tweets_hydrated = 0
+        user_count = 0 # what index of all_users I am currently using to hydrate
+        num_iter = 0 # how many total users I have gone through
+        tweet_limit = 300
+        user = all_users[user_count]
+        [consumer_key, consumer_secret,access_token,access_token_secret] = getKeysTokens(user)
+        t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
+        curr_df = pd.read_csv(id_file)
+        all_ids = curr_df.iloc[:,0]
+        last_idx = (len(all_ids) - 1)
+        print(id_file, "has",last_idx,"ids")
+        curr_idx = range(num_iter*300,(num_iter+1)*300)
+        out_file = filename[:-4] + '_hydrated.csv'
+        open(out_file,'w')
+        while last_idx not in curr_idx:
+            tweets = t.hydrate(all_ids[curr_idx])
+            for tweet in tweets:
+                try:
+                    curr_tweet = dict()
+                    # ignore any non-English tweets or retweets
+                    if tweet['lang'] != "en":
+                        continue
+                    curr_tweet['text'] = tweet['full_text']
+                    curr_tweet['id'] = tweet['id']
+                    if tweet['place']:
+                        curr_tweet['place'] = tweet['place']['country']
+                    else:
+                        curr_tweet['place'] = ""
+                    curr_tweet['created_at'] = tweet['created_at']
+                    curr_tweet['user_location'] = tweet['user']['location']
+                    curr_tweet['user_name'] = tweet['user']['name']
+                    curr_tweet['user_followers_count'] = tweet['user']['followers_count']
+                    curr_tweet['retweet_count'] = tweet['retweet_count']
+                    curr_tweet['favorite_count'] = tweet['favorite_count']
+                    if tweet['entities']['hashtags']:
+                        curr_tweet['hashtags'] = tweet['entities']['hashtags'][0]
+                    else:
+                        curr_tweet['hashtags'] = ""
+                    all_tweets.append(curr_tweet)
+                    num_tweets_hydrated += 1
+                except Exception as e:
+                    print('EXCEPTION:', e)
+                    continue
+                num_iter += 1
+                curr_idx = range(num_iter*300,(num_iter+1)*300)
+                # we are limited to 300 tweets every 15 min for every account, cycle to next account if limit is reached
+                if num_tweets_hydrated == tweet_limit:
+                    user_count += 1
+                    print("milked", user, "'s limit, onto using ", all_users[user_count], "'s account")
+                    if user_count == len(all_users):
+                        print("take a break! we need to rest 15 minutes before cycling through our accounts again")
+                        df_tweets = pd.DataFrame.from_dict(all_tweets)
+                        df_tweets.to_csv(out_file, index=False, mode='a', header=False)
+                        all_tweets = []
+                        print("you can check out what tweets we've currently hydrated at", out_file)
+                        exit # uncommment this out to run the cycle for real
+                        time.sleep(60 * 15)
+                        user_count = 0
+                    num_tweets_hydrated = 0
+                    user = all_users[user_count]
+                    [consumer_key, consumer_secret, access_token, access_token_secret] = getKeysTokens(user)
+                    t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
+        # df_tweets['sentiment'] = df.iloc[:,1]
+        print("successfully extracted tweets and attributes, check it out at", out_file)
