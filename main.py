@@ -26,6 +26,7 @@ def getKeysTokens(user):
         print("invalid username yo, are you even in cis530??")
     return [consumer_key, consumer_secret,access_token,access_token_secret]
 
+consumer_key, consumer_secret, access_token, access_token_secret = getKeysTokens('hiyori')
 t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
 # change file name to whatever csv you downloaded from IEEE: https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset
 first_file_num = 1 # TODO Change to the first file you're doing 
@@ -41,22 +42,20 @@ for num in file_range:
     else:
         filename = 'corona_tweets_' + str(num) +'.csv'
     df = pd.read_csv(filename, header=None)
-    df.columns = ['id', 'sentiment']
+    # df.columns = ['id', 'sentiment']
     total_tweets = df.shape[0]
     # df.sort_values(df.columns[0], inplace=True)
     last_tweet = 0 
     df_tweet_file = pd.DataFrame(columns = ['text', 'id' ,'place', 'created_at', 'user_location', 'user_name', 'hashtags'])
     while last_tweet < total_tweets - 1:
         batch_size = min(5, total_tweets - last_tweet) # TODO change 5 to 300 
-        ids = df['id'][last_tweet:last_tweet+batch_size]
+        ids = df[last_tweet:last_tweet+batch_size].iloc[:, 0]
         print(ids)
-        ids.to_csv(filename.split('.')[0] + '_ids.csv', index=False, header=False)
+        ids.to_csv(filename.split('.')[0] + '_ids.csv', index=False)
         time.sleep(10)
-        # file = open(filename)
-        # hydrated = t.hydrate(open(filename))
-        start_time = datetime.now()
         df_2 = pd.read_csv(filename.split('.')[0] + '_ids.csv', header=None)
         print(df_2)
+        start_time = datetime.now()
         for tweet in t.hydrate(open(filename.split('.')[0] + '_ids.csv')):
             print(tweet)
             # tweet = t.hydrate(line.split(',')[0])
@@ -98,6 +97,7 @@ for num in file_range:
             end_time = datetime.now()
             diff = end_time - start_time
             time.sleep(10 - diff.total_seconds())
+    df.columns = ['id', 'sentiment']
     df_tweets_add = df_tweet_file.join(df.set_index('id'), on='id', lsuffix='l', rsuffix='r')
     print(df_tweets_add)
     df_tweets.append(df_tweets_add)
