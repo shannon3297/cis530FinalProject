@@ -15,7 +15,7 @@ def getKeysTokens(user):
         consumer_secret = "qUpB8Gmp3zKwfjukD6HYYuVSAdnXnXKAsMqAF1ayIja9uB2Rnx"
         access_token = "1380171300073832448-CFDU1goMdSK4eCisjDEgKG6pAkuJYl"
         access_token_secret = "EHI7kRnHcbFy507q84jOCJ7kDf8uqMkfjFd59xK7jdrU3"
-    elif user == "varun": # TODOVarun
+    elif user == "varun": 
         consumer_key = "vzyVgjCXw52MNQIP4y3hU9hem"
         consumer_secret = "tFYIw6QIGz8NPiMsyo55cUufb10JyRAHTwnPZsCU9mYgDpb0XH"
         access_token = "1380174793664831493-lxP6ZpqxuaytISermxHYj4HlnIKKwQ"
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     num_files = len(file_range)
     df_tweets = pd.DataFrame(columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name',
                                       'followers_count','retweet_count','favorite_count','hashtags', 'sentiment'])
-    all_users = ["shan","hiyori","mike"] # TODOVarun: add ,"ori","varun" once they add their info in getKeysTokens
+    all_users = ["shan","hiyori","mike","varun"] # TODO: add "ori" once they add their info in getKeysTokens
     # iterate through all files [first, last] range
     for num in file_range:
         # extract ids from file
