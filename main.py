@@ -1,7 +1,6 @@
 from twarc import Twarc
 import pandas as pd
 import time
-import numpy as np
 
 # this function gets keys and tokens for particular user
 # valid inputs: "shan", "hiyori", "varun", "mike", "ori"
@@ -35,11 +34,8 @@ def getKeysTokens(user):
         print("invalid username yo, but hit us up if you want to help and make a Twitter dev account lol")
     return [consumer_key, consumer_secret,access_token,access_token_secret]
 
-pd.set_option('display.float_format', lambda x: '%.5f' % x)
-
 if __name__ == "__main__":
     # IEEE dataport: https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset
-    print('FIRST MAKE SURE THAT YOUR CSV IDs are type Number -> 0 decimals')
     first = input("Type the first file to extract data from (ex: corona_tweets_01.csv = 01):")
     first_file_num = int(first)
     last = input("Type the last file to extract data from (ex: corona_tweets_12.csv = 12):")
@@ -117,8 +113,9 @@ if __name__ == "__main__":
                 # we are limited to 300 tweets every 15 min for every account, cycle to next account if limit is reached
                 if num_tweets_hydrated == tweet_limit:
                     user_count += 1
-                    print("milked", user, "'s limit, onto using ", all_users[user_count], "'s account")
-                    if user_count == len(all_users):
+                    if user_count != len(all_users):
+                        print("milked", user, "'s limit, onto using ", all_users[user_count], "'s account")
+                    else:
                         print("take a break! we need to rest 15 minutes before cycling through our accounts again")
                         df_tweets = pd.DataFrame.from_dict(all_tweets)
                         df_tweets.to_csv(out_file, index=False, mode='a', header=False)
