@@ -16,10 +16,10 @@ def getKeysTokens(user):
         access_token = "1380171300073832448-CFDU1goMdSK4eCisjDEgKG6pAkuJYl"
         access_token_secret = "EHI7kRnHcbFy507q84jOCJ7kDf8uqMkfjFd59xK7jdrU3"
     elif user == "varun": # TODOVarun
-        consumer_key = ""
-        consumer_secret = ""
-        access_token = ""
-        access_token_secret = ""
+        consumer_key = "vzyVgjCXw52MNQIP4y3hU9hem"
+        consumer_secret = "tFYIw6QIGz8NPiMsyo55cUufb10JyRAHTwnPZsCU9mYgDpb0XH"
+        access_token = "1380174793664831493-lxP6ZpqxuaytISermxHYj4HlnIKKwQ"
+        access_token_secret = "TucRWP58d296ZOJIyXVHxyzdrvj7tkFU6cbOztN0pnLDN"
     elif user == "ori":
         consumer_key = ""
         consumer_secret = ""
