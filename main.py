@@ -48,11 +48,12 @@ if __name__ == "__main__":
     # iterate through all files [first, last] range
     for num in file_range:
         # extract ids from file
-        print('On file ' + str(num) + ' out of ' + str(num_files))
+        print('On tweet file number ' + str(num) + ' out of ' + str(num_files) + ' total files')
         if num<10:
             filename = 'corona_tweets_0' + str(num) + '.csv'
         else:
             filename = 'corona_tweets_' + str(num) + '.csv'
+        # extract ids to separate csv
         df = pd.read_csv(filename)
         ids=df.iloc[:,0]
         id_file = filename[:-4] + '_ids.csv'
@@ -79,6 +80,9 @@ if __name__ == "__main__":
         curr_idx = range(num_iter*300,(num_iter+1)*300)
         out_file = filename[:-4] + '_hydrated.csv'
         open(out_file,'w')
+        # write sentiment (label) to separate file
+        df.iloc[:, 1].to_csv(filename[:-4] + '_sentiment.csv', index=False, header=False)
+        # hydrate all ids in id.csv
         while last_idx not in curr_idx:
             tweets = t.hydrate(all_ids[curr_idx])
             for tweet in tweets:
@@ -128,5 +132,4 @@ if __name__ == "__main__":
                     user = all_users[user_count]
                     [consumer_key, consumer_secret, access_token, access_token_secret] = getKeysTokens(user)
                     t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
-        # df_tweets['sentiment'] = df.iloc[:,1]
         print("successfully extracted tweets and attributes, check it out at", out_file)
