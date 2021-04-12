@@ -7,11 +7,11 @@ if __name__ == "__main__":
     gold_file = gold
     with open(gold_file, newline='') as gf:
         y_true = list(csv.reader(gf))
-        y_true = list(chain.from_iterable(y_true))
-        y_true = [float(i) for i in y_true]
+        y_true = [float(i) for id, i in y_true]
     n = len(y_true)
     mean = sum(y_true) / n
     y_pred = [mean] * n
+    print(mean)
     mean_absolute_error = mean_absolute_error(y_pred, y_true)
     mean_squared_error = mean_squared_error(y_pred, y_true)
     max_error = max_error(y_pred,y_true)
