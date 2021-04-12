@@ -43,7 +43,7 @@ if __name__ == "__main__":
     file_range = list(range(first_file_num, last_file_num + 1))
     num_files = len(file_range)
     df_tweets = pd.DataFrame(columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name',
-                                      'followers_count','retweet_count','favorite_count','hashtags', 'sentiment'])
+                                      'followers_count','retweet_count','favorite_count','hashtags'])
     all_users = ["shan","hiyori","mike","varun"]
     # iterate through all files [first, last] range
     for num in file_range:
@@ -81,8 +81,6 @@ if __name__ == "__main__":
         # setup output .csv
         hydrated_file = filename[:-4] + '_hydrated.csv'
         open(hydrated_file,'w')
-        sentiment_file = filename[:-4] + '_sentiment.csv'
-        open(sentiment_file, 'w')
         # hydrate all ids in id.csv
         while last_idx not in curr_idx:
             tweets = t.hydrate(all_ids[curr_idx])
@@ -103,9 +101,6 @@ if __name__ == "__main__":
                     curr_tweet['favorite_count'] = tweet['favorite_count']
                     curr_tweet['hashtags'] = tweet['entities']['hashtags'][0] if tweet['entities']['hashtags'] else ""
                     all_tweets.append(curr_tweet)
-                    # append sentiment for valid tweet
-                    with open(sentiment_file, 'a') as sf:
-                        sf.write(str(df.iloc[tweet_idx,1]) + '\n')
                 except Exception as e:
                     print('EXCEPTION:', e)
                     continue
@@ -120,11 +115,7 @@ if __name__ == "__main__":
             else:
                 print("milked", user, "'s limit, we've now cycled through a total of", num_iter, "users")
                 print("take a break! we need to rest 15 minutes before cycling through our accounts again")
-                # note that length of hydrated and sentiment files may not always be equal because we are
-                # appending sentiment 1 by 1 while in batches of tweet_limit to hydrated
-                # so most likely len(sentiment_file) > len(hydrated_file) when you open the 2 files
                 print("you can check out what tweets we've currently hydrated at", hydrated_file)
-                print("and corresponding sentiment at", sentiment_file)
                 time.sleep(60 * 15)
                 user_count = 0
             df_tweets = pd.DataFrame.from_dict(all_tweets)
@@ -133,4 +124,4 @@ if __name__ == "__main__":
             user = all_users[user_count]
             [consumer_key, consumer_secret, access_token, access_token_secret] = getKeysTokens(user)
             t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
-        print("successfully stored tweets and sentiment for file",num, "in", hydrated_file)
+        print("successfully stored hydrated tweets for file ",num, "in", hydrated_file)
