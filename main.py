@@ -15,7 +15,7 @@ def getKeysTokens(user):
         consumer_secret = "qUpB8Gmp3zKwfjukD6HYYuVSAdnXnXKAsMqAF1ayIja9uB2Rnx"
         access_token = "1380171300073832448-CFDU1goMdSK4eCisjDEgKG6pAkuJYl"
         access_token_secret = "EHI7kRnHcbFy507q84jOCJ7kDf8uqMkfjFd59xK7jdrU3"
-    elif user == "varun": 
+    elif user == "varun":
         consumer_key = "vzyVgjCXw52MNQIP4y3hU9hem"
         consumer_secret = "tFYIw6QIGz8NPiMsyo55cUufb10JyRAHTwnPZsCU9mYgDpb0XH"
         access_token = "1380174793664831493-lxP6ZpqxuaytISermxHYj4HlnIKKwQ"
@@ -44,7 +44,7 @@ if __name__ == "__main__":
     num_files = len(file_range)
     df_tweets = pd.DataFrame(columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name',
                                       'followers_count','retweet_count','favorite_count','hashtags', 'sentiment'])
-    all_users = ["shan","hiyori","mike","varun"] # TODO: add "ori" once they add their info in getKeysTokens
+    all_users = ["shan","hiyori","mike","varun"]
     # iterate through all files [first, last] range
     for num in file_range:
         # extract ids from file
@@ -66,7 +66,7 @@ if __name__ == "__main__":
         df_tweet_file = pd.DataFrame(
             columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name', \
                      'followers_count', 'retweet_count', 'favorite_count', 'hashtags'])
-        num_tweets_hydrated = 0
+        tweet_idx = 0
         user_count = 0 # what index of all_users I am currently using to hydrate
         num_iter = 0 # how many total users I have gone through
         tweet_limit = 300
@@ -78,9 +78,9 @@ if __name__ == "__main__":
         last_idx = (len(all_ids) - 1)
         print(id_file, "has",last_idx,"ids")
         curr_idx = range(num_iter*tweet_limit,(num_iter+1)*tweet_limit)
+        # setup output .csv
         hydrated_file = filename[:-4] + '_hydrated.csv'
         open(hydrated_file,'w')
-        # write sentiment (label) to separate file
         sentiment_file = filename[:-4] + '_sentiment.csv'
         open(sentiment_file, 'w')
         # hydrate all ids in id.csv
@@ -105,11 +105,11 @@ if __name__ == "__main__":
                     all_tweets.append(curr_tweet)
                     # append sentiment for valid tweet
                     with open(sentiment_file, 'a') as sf:
-                        sf.write(str(df.iloc[num_tweets_hydrated,1]) + '\n')
+                        sf.write(str(df.iloc[tweet_idx,1]) + '\n')
                 except Exception as e:
                     print('EXCEPTION:', e)
                     continue
-                num_tweets_hydrated += 1
+                tweet_idx += 1
             # update number of batches iterated and index of ids to hydrate
             num_iter += 1
             curr_idx = range(num_iter*300,(num_iter+1)*300)
@@ -118,8 +118,13 @@ if __name__ == "__main__":
             if user_count != len(all_users):
                 print("milked", user, "'s limit, onto using ", all_users[user_count], "'s account")
             else:
+                print("milked", user, "'s limit, we've now cycled through a total of", num_iter, "users")
                 print("take a break! we need to rest 15 minutes before cycling through our accounts again")
+                # note that length of hydrated and sentiment files may not always be equal because we are
+                # appending sentiment 1 by 1 while in batches of tweet_limit to hydrated
+                # so most likely len(sentiment_file) > len(hydrated_file) when you open the 2 files
                 print("you can check out what tweets we've currently hydrated at", hydrated_file)
+                print("and corresponding sentiment at", sentiment_file)
                 time.sleep(60 * 15)
                 user_count = 0
             df_tweets = pd.DataFrame.from_dict(all_tweets)
