@@ -38,21 +38,23 @@ if __name__ == "__main__":
     # IEEE dataport: https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset
     first = input("Type the first file to extract data from (ex: corona_tweets_01.csv = 01):")
     first_file_num = int(first)
-    last = input("Type the last file to extract data from (ex: corona_tweets_12.csv = 12):")
-    last_file_num = int(last)
-    file_range = list(range(first_file_num, last_file_num + 1))
-    num_files = len(file_range)
+    second = input("Type the second file to extract data from (ex: corona_tweets_50.csv = 50):")
+    second_file_num = int(second)
+    third = input("Type the third file to extract data from (ex: corona_tweets_300.csv = 300):")
+    third_file_num = int(third)
+    files = [first_file_num,second_file_num,third_file_num]
+    num_files = len(files)
     df_tweets = pd.DataFrame(columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name',
                                       'followers_count','retweet_count','favorite_count','hashtags'])
     all_users = ["shan","hiyori","mike","varun"]
-    # iterate through all files [first, last] range
-    for num in file_range:
+    # iterate through batch of 3 files inputted
+    for file_num in files:
         # extract ids from file
-        print('On tweet file number ' + str(num) + ' out of ' + str(num_files) + ' total files')
-        if num<10:
-            filename = 'corona_tweets_0' + str(num) + '.csv'
+        print('On tweet file number ' + str(file_num) + ' out of ' + str(num_files) + ' total files')
+        if file_num<10:
+            filename = 'corona_tweets_0' + str(file_num) + '.csv'
         else:
-            filename = 'corona_tweets_' + str(num) + '.csv'
+            filename = 'corona_tweets_' + str(file_num) + '.csv'
         # extract ids to separate csv
         df = pd.read_csv(filename)
         ids=df.iloc[:,0]
@@ -70,6 +72,7 @@ if __name__ == "__main__":
         user_count = 0 # what index of all_users I am currently using to hydrate
         num_iter = 0 # how many total users I have gone through
         tweet_limit = 300
+        target_length = 10000 # get 10,000 tweets from each file
         user = all_users[user_count]
         [consumer_key, consumer_secret,access_token,access_token_secret] = getKeysTokens(user)
         t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
@@ -81,8 +84,9 @@ if __name__ == "__main__":
         # setup output .csv
         hydrated_file = filename[:-4] + '_hydrated.csv'
         open(hydrated_file,'w')
-        # hydrate all ids in id.csv
-        while last_idx not in curr_idx:
+        print('beginning to hydrate', target_length, 'number of tweets from', id_file)
+        # hydrate up to target_length number of tweets
+        while num_iter * tweet_limit < target_length:
             tweets = t.hydrate(all_ids[curr_idx])
             for tweet in tweets:
                 try:
@@ -124,4 +128,4 @@ if __name__ == "__main__":
             user = all_users[user_count]
             [consumer_key, consumer_secret, access_token, access_token_secret] = getKeysTokens(user)
             t = Twarc(consumer_key, consumer_secret, access_token, access_token_secret)
-        print("successfully stored hydrated tweets for file ",num, "in", hydrated_file)
+        print("successfully stored hydrated tweets for file ",file_num, "in", hydrated_file)
