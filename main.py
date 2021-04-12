@@ -42,7 +42,11 @@ if __name__ == "__main__":
     second_file_num = int(second)
     third = input("Type the third file to extract data from (ex: corona_tweets_300.csv = 300):")
     third_file_num = int(third)
-    files = [first_file_num,second_file_num,third_file_num]
+    four = input("Type the fourth file to extract data from:")
+    four_file_num = int(four)
+    five = input("Type the fifth file to extract data from:")
+    five_file_num = int(five)
+    files = [first_file_num,second_file_num,third_file_num,four_file_num,five_file_num]
     num_files = len(files)
     df_tweets = pd.DataFrame(columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name',
                                       'followers_count','retweet_count','favorite_count','hashtags'])
@@ -86,7 +90,7 @@ if __name__ == "__main__":
         open(hydrated_file,'w')
         print('beginning to hydrate', target_length, 'number of tweets from', id_file)
         # hydrate up to target_length number of tweets
-        while num_iter * tweet_limit < target_length:
+        while num_iter * tweet_limit < target_length + tweet_limit:
             tweets = t.hydrate(all_ids[curr_idx])
             for tweet in tweets:
                 try:
