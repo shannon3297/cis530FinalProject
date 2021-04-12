@@ -4,14 +4,18 @@ from itertools import chain
 import pandas as pd
 
 if __name__ == "__main__":
-    gold = input("Type the .csv gold label for test file (ex: gold_test.csv):")
-    gold_file = gold
-    with open(gold_file, newline='') as gf:
-        y_true = list(csv.reader(gf))
-        y_true = [float(i) for id, i in y_true]
-    n = len(y_true)
-    mean = sum(y_true) / n
-    y_pred = [mean] * n
-    y_pred_df = pd.DataFrame(y_pred)
-    y_pred_df.to_csv(gold_file.split(".")[0] + '_pred.csv', index=False, header=False)
-    print("Check out the predictions in " + gold_file.split(".")[0] + "_pred.csv")
+    # get gold labels filename 
+    gold_file = input("Type the .csv gold label for test file (ex: gold_test.csv):")
+
+    # read csv
+    df = pd.read_csv(gold_file)
+
+    # get majority class and assign it to all tweets
+    majority_class = df['sentiment'].value_counts().idxmax()
+    df['pred'] = majority_class
+
+    # write to csv
+    df.to_csv("_".join(gold_file.split("_")[:3]) + '_pred.csv', index=False, columns=['pred'])
+    print("Check out the predictions in " + "_".join(gold_file.split("_")[:3]) + "_pred.csv")
+    df.to_csv(gold_file.split(".")[0] + '_pred.csv', index=False)
+    print("Check out the IDs, gold labels, and predictions in " + gold_file.split(".")[0] + "_pred.csv")
