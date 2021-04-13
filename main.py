@@ -1,6 +1,7 @@
 from twarc import Twarc
 import pandas as pd
 import time
+import csv
 
 # this function gets keys and tokens for particular user
 # valid inputs: "shan", "hiyori", "varun", "mike", "ori"
@@ -36,17 +37,9 @@ def getKeysTokens(user):
 
 if __name__ == "__main__":
     # IEEE dataport: https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset
-    first = input("Type the first file to extract data from (ex: corona_tweets_01.csv = 01):")
-    first_file_num = int(first)
-    second = input("Type the second file to extract data from (ex: corona_tweets_50.csv = 50):")
-    second_file_num = int(second)
-    third = input("Type the third file to extract data from (ex: corona_tweets_300.csv = 300):")
-    third_file_num = int(third)
-    four = input("Type the fourth file to extract data from:")
-    four_file_num = int(four)
-    five = input("Type the fifth file to extract data from:")
-    five_file_num = int(five)
-    files = [first_file_num,second_file_num,third_file_num,four_file_num,five_file_num]
+    # retrieve list of csv IDs to split into train, dev, test sets
+    num_inputs = input("Type a list of hydrated_sentiment csv file IDs space-delimited, ex: 01 15 100 388: ")
+    files = list(map(lambda x: int(x), num_inputs.split()))
     num_files = len(files)
     df_tweets = pd.DataFrame(columns=['text', 'id', 'place', 'created_at', 'user_location', 'user_name',
                                       'followers_count','retweet_count','favorite_count','hashtags'])
@@ -55,7 +48,7 @@ if __name__ == "__main__":
     for file_num in files:
         # extract ids from file
         print('On tweet file number ' + str(file_num) + ' out of ' + str(num_files) + ' total files')
-        if file_num<10:
+        if file_num < 10:
             filename = 'corona_tweets_0' + str(file_num) + '.csv'
         else:
             filename = 'corona_tweets_' + str(file_num) + '.csv'
