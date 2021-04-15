@@ -1,7 +1,3 @@
-You should give a formal definition of the evaluation metric that explains how it is calculated in a markdown file called scoring.md - this file should cite any relevant papers that introduce the metric. You can also cite Wikipedia articles that describe your evaluation metric
-Your scoring.md file should also show how to run your evaluation script on the command line (with example arguments, and example output). The scoring.md file should say whether higher scores are better, or lower scores are better.
+Our evaluation script makes use of F1-score as our metric. Recall from class that the F1-score is comprised of both precision and recall. Many papers that we reviewed related to our topic, including (Zhang et al.), (Araci et al.), and (Muller et al.), chose to use F1-score rather than plain accuracy. The highest possible score is 1.0 and represents perfect precision and recall. This means that there are no false positives or false negatives. The lowest score is 0. In our specific case, we have a file that compares two separate files - one containing the predicted labels and the other with the actual labels. Then, the overall F1-score and the F1-score by class are returned. Note that there are 3 possible labels (negative, neutral, positive).
 
-F1 Score or Accuracy most common:
-https://www.sciencedirect.com/science/article/pii/S0925231217316090
-https://arxiv.org/pdf/1908.10063.pdf
-https://arxiv.org/pdf/2005.07503.pdf 
+In order to use our scoring script, first run "python score.py," after which you will be prompted to enter the paths of the two files. If the paths are correct and the files are properly formatted, then the scores will be calculated and returned in the terminal output. 
