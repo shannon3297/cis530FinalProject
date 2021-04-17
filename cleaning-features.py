@@ -14,6 +14,10 @@ if __name__ == "__main__":
         df = pd.read_csv(directory+file,header=0,low_memory=False,encoding='utf-8-sig')
         df[['weekday', 'month','day','time','useless','year']] = df.created_at.str.split(expand=True)
         df.drop(columns=['id', 'user_name', 'created_at', 'useless'],inplace=True)
+
+        # presence of numbers 
+        df['num_present'] = df['text'].map(lambda x: 1 if any(map(str.isdigit, x)) else 0)
+
         # move sentiment label to last column: THIS SHOULD BE LAST LINE OF CODE BEFORE df.to_csv
         # reference: https://stackoverflow.com/questions/25122099/move-column-by-name-to-front-of-table-in-pandas
         df = df[[col for col in df.columns if col != 'sentiment'] + ['sentiment']]
