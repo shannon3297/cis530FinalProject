@@ -1,0 +1,1 @@
+# This is the model file where we run the implemented log reg model
