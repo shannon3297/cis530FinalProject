@@ -1,6 +1,6 @@
 import pandas as pd
-# from better_profanity import profanity
-from profanity_check import predict
+from better_profanity import profanity
+#from profanity_check import predict
 import emoji
 import re
 import swifter 
@@ -43,7 +43,7 @@ if __name__ == "__main__":
         vaccine_words = ["vaccine", "vaccines", "corona vaccine", "corona vaccines", "#coronavaccine", "#coronavaccines", "vax", "pfizer", "biontech", "moderna"]
         df['vaccine'] = df['text'].swifter.apply(lambda x: any(word in x.lower() for word in vaccine_words))
         # text includes profanity or offensive language 
-        df['profanity_present'] = df['text'].swifter.apply(lambda x: True if predict([x])[0] else False)
+        df['profanity_present'] = df['text'].swifter.apply(lambda x: True if profanity.contains_profanity([x])[0] else False)
         # text includes emojis
         df['emoji_present'] = df['text'].swifter.apply(lambda x: any(map(is_emoji, x)))
         # presence of links
