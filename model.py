@@ -105,16 +105,33 @@ def model_stats(model, X_train, y_train, X_dev, y_dev, X_test, y_test):
     y_preds_dev = model.predict(X_dev)
     y_preds_test = model.predict(X_test)
 
-    print("Training F1: ", f1_score(y_train, y_preds_train, average='micro'))
-    print("Dev F1: ", f1_score(y_dev, y_preds_dev, average='micro'))
-    print("Test F1: ", f1_score(y_test, y_preds_test, average='micro'))
+    print("Training F1 Micro: ", f1_score(y_train, y_preds_train, average='micro'))
+    print("Dev F1 Micro: ", f1_score(y_dev, y_preds_dev, average='micro'))
+    print("Test F1 Micro: ", f1_score(y_test, y_preds_test, average='micro'))
+
+    print("Training F1 Weighted: ", f1_score(y_train, y_preds_train, average='weighted'))
+    print("Dev F1 Weighted: ", f1_score(y_dev, y_preds_dev, average='weighted'))
+    print("Test F1 Weighted: ", f1_score(y_test, y_preds_test, average='weighted'))
+
+    # Output preds to files
+    with open('preds/train_preds.txt', 'w') as f:
+        for row in y_preds_train:
+            f.write("%s\n" % str(row))
+
+    with open('preds/dev_preds.txt', 'w') as f:
+        for row in y_preds_dev:
+            f.write("%s\n" % str(row))
+
+    with open('preds/test_preds.txt', 'w') as f:
+        for row in y_preds_test:
+            f.write("%s\n" % str(row))
 
 # Run everything!
 if __name__ == '__main__':
     # Define raw data here
-    train_file = 'train-dev-test/train_cleaned_features.csv'
-    dev_file = 'train-dev-test/dev_cleaned_features.csv'
-    test_file = 'train-dev-test/test_cleaned_features.csv'
+    train_file = 'train-dev-test/train_vax_cleaned.csv'
+    dev_file = 'train-dev-test/dev_vax_cleaned.csv'
+    test_file = 'train-dev-test/test_vax_cleaned.csv'
 
     # Load data
     print("Loading Data")
