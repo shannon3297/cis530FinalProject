@@ -38,7 +38,7 @@ python lstm.py
 4. Run lda_sentiment.py (input path to train/dev/test, should be data/train.csv, data/dev.csv, and data/test.csv if you set up structure correctly)
 5. You can then visualize the clusters!
 
-# How to run unsupervised learning model (sentiment tracking over time) - Extension 2
+# How to get some fun insights (sentiment tracking over time) - Extension 2
 1. Download trending_sentiment.py
 2. Download data into a subfolder within the same folder that trending_sentiment.py is in
 3. Confirm the data folder has train.csv, dev.csv, test.csv
