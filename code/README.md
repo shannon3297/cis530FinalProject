@@ -1,4 +1,4 @@
-#How to run Final Model
+#How to run Final Model (GLoVe LSTM)
 
 
 1.   Place lstm.py in a directory.
@@ -21,5 +21,10 @@ python -m spacy download en
 python lstm.py
 ```
 
+# How to run unsupervised learning model (LDA)
+
+# How to run unsupervised learning model (sentiment tracking over time)
+1. Run Colab from top to bottom and you're done!
+2. You can then visualize data through your favorite platform (Excel, MATLAB, Python matplotlib, etc)
 
 
