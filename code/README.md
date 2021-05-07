@@ -32,7 +32,10 @@ python lstm.py
 ```
 
 # How to run unsupervised learning model (LDA) - Extension 2
-1. Download lda_sentiment.py
+
+NOTE: This file caused issues on some machines, mostly because of the old packages/libraries it uses. If an error occurs with the .py file, please run the notebook ("lda_sentiment.ipynb") instead!
+
+1. Download lda_sentiment.py/ipynb
 2. Download data into a subfolder within the same folder that lda_sentiment.py is in 
 3. Confirm the data folder has train.csv, dev.csv, test.csv
 4. Run lda_sentiment.py (input path to train/dev/test, should be data/train.csv, data/dev.csv, and data/test.csv if you set up structure correctly)
