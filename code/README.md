@@ -1,11 +1,14 @@
 # How to Get Data
-1. Hydrate Tweets (extract tweets from scratch)
+1. Download our data from here (only use the three files): https://drive.google.com/drive/folders/1VIzIzGbztzgnkBygpBsKWGlUxYGzRBlY?usp=sharing :). This folder, which should have be called 'data' and be placed in the same folder as all the other code, will have only 3 files (train.csv, dev.csv, test.csv). 
+
+OR (if you're up for a challenge)
+
+3. Hydrate Tweets (extract tweets from scratch)
 
 The term "hydrate" is used to describe the process of extracting content from Tweets and various metadata with a Twitter dev account given list of Tweet IDs. We consulted this guide https://theneuralblog.com/hydrating-tweet-ids/ and included our code snippet in the Appendix section of the final report. To extract the data, download csv of tweet IDs from target date from IEEE Dataport(https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset) into the same folder that extract-data.py script lives in and run the extract-data.py script. It will ask you to input the ID of the downloaded csv and begin hydrating Tweet IDs located in that csv using 4 of our Twitter dev accounts. If you want to speed up runtime, you can add your Twitter user info in getKeysTokens() function. We are limited to hydrating 300 tweets per user in 15 minutes which is why extracting the data was no quick feat! 
 
-OR (more easily)
+We used various scripts to extract and clean our data: cleaning-features.py, extract_data.py, sentiment-join-extract.py, train_dev_test.py
 
-2. Download our data from here (only use the three files): https://drive.google.com/drive/folders/1VIzIzGbztzgnkBygpBsKWGlUxYGzRBlY?usp=sharing :). This folder, which should have be called 'data' and be placed in the same folder as all the other code, will have only 3 files (train.csv, dev.csv, test.csv). 
 
 # How to run Final Model (GLoVe LSTM) - Extension 1
 
