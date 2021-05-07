@@ -6,7 +6,7 @@ The term "hydrate" is used to describe the process of extracting content from Tw
 NOTE: there appears to be some issues with running this code locally on Windows as it was developed on a Linux machine. If you have trouble running the code when following the instructions below, please upload the lstm.ipynb file onto Google Colab and run all cells. You will need to mount your Google Drive (by running the "mount google drive" cell) and place the data and glove.6B.50d.txt files in /content/drive/MyDrive/CIS530-project/. Otherwise if running locally, please use the following instructions:
 
 1.   Place lstm.py in the code/ directory.
-2.   Place the data files train_vax_cleaned.csv, dev_vax_cleaned.csv, and test_vax_cleaned.csv in a folder named data in the same root directory as 1.
+2.   Place the data files train.csv, dev.csv, and test.csv in a folder named data in the same root directory as 1.
 3.   Download glove.6B.50d.txt file from https://nlp.stanford.edu/projects/glove/ and place it in the same directory as 1.  
 4.   Run the following commands in the command line to download the necessary packages and models:
 
