@@ -52,8 +52,8 @@ NOTE: This file caused issues on some machines, mostly because of the old packag
 5. You can then visualize data through your favorite platform (Excel, MATLAB, Python matplotlib, etc)
 
 # How to run evaluation script
-1.    From the directory that includes score.py, run "python.score.py". 
-2.    For each prompt that shows up, input the correct paths of the two files (gold label file and predictedd labels file)
+1.    From the directory that includes score.py, run "python score.py". 
+2.    For each prompt that shows up, input the correct paths of the two files (gold label file and predicted labels file)
 3.    The output for the provided test gold and predicted labels should look like this:
 
 *    negative: 0.45454545
