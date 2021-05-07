@@ -24,7 +24,7 @@ python lstm.py
 # How to run unsupervised learning model (LDA)
 
 # How to run unsupervised learning model (sentiment tracking over time)
-1. Run Colab from top to bottom and you're done!
+1. Run Colab from top to bottom: https://colab.research.google.com/drive/11fyVYRmf2BSKmOB3Xx6fToXReCn5wyrG#scrollTo=FbULFBgox0tS
 2. You can then visualize data through your favorite platform (Excel, MATLAB, Python matplotlib, etc)
 
 
