@@ -28,7 +28,10 @@ python lstm.py
 # How to run unsupervised learning model (LDA)
 
 # How to run unsupervised learning model (sentiment tracking over time)
-1. Run Colab from top to bottom: https://colab.research.google.com/drive/11fyVYRmf2BSKmOB3Xx6fToXReCn5wyrG#scrollTo=FbULFBgox0tS
-2. You can then visualize data through your favorite platform (Excel, MATLAB, Python matplotlib, etc)
+1. Download trending_sentiment.py
+2. Download data into a subfolder within the same folder that trending_sentiment.py is in
+3. Confirm the data folder has train.csv, dev.csv, test.csv
+4. Run trending_sentiment.py (input path to train/dev/test, should be data/train.csv, dev/train.csv, and test/train.csv if you set up structure correctly)
+5. You can then visualize data through your favorite platform (Excel, MATLAB, Python matplotlib, etc)
 
 
