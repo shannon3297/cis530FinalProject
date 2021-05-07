@@ -5,7 +5,7 @@ The term "hydrate" is used to describe the process of extracting content from Tw
 
 OR (more easily)
 
-2. Download our data from here: https://drive.google.com/drive/folders/1VIzIzGbztzgnkBygpBsKWGlUxYGzRBlY?usp=sharing :)
+2. Download our data from here (only use the three files): https://drive.google.com/drive/folders/1VIzIzGbztzgnkBygpBsKWGlUxYGzRBlY?usp=sharing :). This folder, which should have be called 'data' and be placed in the same folder as all the other code, will have only 3 files (train.csv, dev.csv, test.csv). 
 
 # How to run Final Model (GLoVe LSTM) - Extension 1
 
