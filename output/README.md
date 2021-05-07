@@ -1,0 +1,10 @@
+Our evaluation script makes use of F1-score as our metric. Recall from class that the F1-score is comprised of both precision and recall. Many papers that we reviewed related to our topic, including (Zhang et al.), (Araci et al.), and (Muller et al.), chose to use F1-score rather than plain accuracy. The highest possible score is 1.0 and represents perfect precision and recall. This means that there are no false positives or false negatives. The lowest score is 0. In our specific case, we have a file that compares two separate files - one containing the predicted labels and the other with the actual labels. Then, the overall F1-score and the F1-score by class are returned. Note that there are 3 possible labels (negative, neutral, positive).
+
+In order to use our scoring script, first run "python score.py," after which you will be prompted to enter the paths of the two files. If the paths are correct and the files are properly formatted, then the class-specific and weighted average F1 scores will be calculated and returned in the terminal output. 
+
+## Example scores:
+For the test set:
+*    negative: 0.45454545
+*    neutral: 0.80066348
+*    positive: 0.77755529
+*    weighted average: 0.734895155
