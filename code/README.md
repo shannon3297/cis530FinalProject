@@ -31,6 +31,16 @@ python -m spacy download en
 python lstm.py
 ```
 
+# How to run evaluation script
+1.    From the directory that includes score.py, run "python.score.py". 
+2.    For each prompt that shows up, input the correct paths of the two files (gold label file and predictedd labels file)
+3.    The output for the provided test gold and predicted labels should look like this:
+
+*    negative: 0.45454545
+*    neutral: 0.80066348
+*    positive: 0.77755529
+*    weighted average: 0.734895155
+
 # How to run unsupervised learning model (LDA) - Extension 2
 
 NOTE: This file caused issues on some machines, mostly because of the old packages/libraries it uses. If an error occurs with the .py file, please run the notebook ("lda_sentiment.ipynb") instead!
