@@ -1,4 +1,4 @@
-#How to run Final Model (GLoVe LSTM)
+# How to run Final Model (GLoVe LSTM)
 
 
 1.   Place lstm.py in a directory.
