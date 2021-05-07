@@ -87,6 +87,8 @@ train_feats['text'].map(lambda x: x.lower())
 # Print out the first rows of papers
 train_feats['text'].head()
 
+print("Reached stopwords")
+
 # More processing of data
 stop_words = stopwords.words('english')
 # Add these common stop words from Tweets
@@ -115,6 +117,8 @@ id2word = corpora.Dictionary(data_words)
 texts = data_words
 # Term Document Frequency
 corpus = [id2word.doc2bow(text) for text in texts]
+
+print("Before we build LDA model")
 
 # number of topics
 num_topics = 6
