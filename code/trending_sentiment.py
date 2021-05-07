@@ -13,13 +13,10 @@ This code tracks sentiment over time of users with top retweeted Tweets from the
 
 # imports
 import pandas as pd
-from google.colab import drive
-drive.mount('/content/drive')
-pd.set_option('max_colwidth', 400)
 
-train_file = input("What's the path to your vaccine train.csv dataset? Ex: /content/drive/MyDrive/CIS530/CIS530 Final Project/Milestone 4/train-dev-test/train_vax_cleaned.csv: ")
-dev_file = input("What's the path to your vaccine dev.csv dataset? Ex: /content/drive/MyDrive/CIS530/CIS530 Final Project/Milestone 4/train-dev-test/dev_vax_cleaned.csv: ")
-test_file = input("What's the path to your vaccine test.csv dataset? Ex: /content/drive/MyDrive/CIS530/CIS530 Final Project/Milestone 4/train-dev-test/test_vax_cleaned.csv: ")
+train_file = input("What's the path to your vaccine train.csv dataset? Ex: data/train.csv: ")
+dev_file = input("What's the path to your vaccine dev.csv dataset? Ex: data/dev.csv: ")
+test_file = input("What's the path to your vaccine test.csv dataset? Ex: data/test.csv: ")
 train_df = pd.read_csv(train_file, low_memory=False, encoding='utf-8-sig')
 dev_df = pd.read_csv(dev_file, low_memory=False, encoding='utf-8-sig')
 test_df = pd.read_csv(test_file, low_memory=False, encoding='utf-8-sig')
