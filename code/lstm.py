@@ -40,9 +40,9 @@ device = torch.device("cuda:0" if torch.cuda.is_available() else "cpu")
 
 
 # read CSV
-df_train = pd.read_csv('train-dev-test/train_vax_cleaned.csv')
-df_val = pd.read_csv('train-dev-test/dev_vax_cleaned.csv')
-df_test = pd.read_csv('train-dev-test/test_vax_cleaned.csv')
+df_train = pd.read_csv('data/train.csv')
+df_val = pd.read_csv('data/dev.csv')
+df_test = pd.read_csv('data/test.csv')
 
 
 # ## Preprocessing
