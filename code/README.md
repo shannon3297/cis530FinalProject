@@ -1,8 +1,9 @@
 # How to Get Data
 1. Hydrate Tweets (extract tweets from scratch)
+
 The term "hydrate" is used to describe the process of extracting content from Tweets and various metadata with a Twitter dev account given list of Tweet IDs. We consulted this guide https://theneuralblog.com/hydrating-tweet-ids/ and included our code snippet in the Appendix section of the final report. To extract the data, download csv of tweet IDs from target date from IEEE Dataport(https://ieee-dataport.org/open-access/coronavirus-covid-19-tweets-dataset) into the same folder that extract-data.py script lives in and run the extract-data.py script. It will ask you to input the ID of the downloaded csv and begin hydrating Tweet IDs located in that csv using 4 of our Twitter dev accounts. If you want to speed up runtime, you can add your Twitter user info in getKeysTokens() function. We are limited to hydrating 300 tweets per user in 15 minutes which is why extracting the data was no quick feat! 
 
-OR 
+OR (more easily)
 
 2. Download our data from here: https://drive.google.com/drive/folders/1VIzIzGbztzgnkBygpBsKWGlUxYGzRBlY?usp=sharing :)
 
